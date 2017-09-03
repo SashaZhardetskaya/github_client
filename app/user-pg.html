@@ -1,0 +1,9 @@
+<div ng-controller="loginController as login">
+    <div>Hello, {{ login.gihubName }}</div>
+
+    <form name="loginForm" role="form" class="first-screen" ng-submit="login.setName()">
+        <input type="text" placeholder="User name" ng-model="login.githubName">
+        <input type="submit">
+    </form>
+
+</div>
