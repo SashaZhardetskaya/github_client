@@ -1,9 +1,10 @@
-<div ng-controller="loginController as login">
-    <div>Hello, {{ login.gihubName }}</div>
+<section class="login__section">
+    <div class="login__container">
+        <div>Hello, {{ gitHubName }}</div>
 
-    <form name="loginForm" role="form" class="first-screen" ng-submit="login.setName()">
-        <input type="text" placeholder="User name" ng-model="login.githubName">
-        <input type="submit">
-    </form>
-
-</div>
+        <form name="loginForm" role="form" class="login__form" ng-submit="setName()">
+            <input class="login-input__text" type="text" placeholder="User name" ng-model="gitHubName">
+            <input class="login-input__submit" type="submit">
+        </form>
+    </div>
+</section>

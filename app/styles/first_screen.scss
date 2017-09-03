@@ -1,3 +1,31 @@
-body {
-  background: green;
+.login__section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__container {
+  padding: 30px 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: 3px solid rgba(99, 135, 173, 0.77);
+  //box-shadow: 1px 3px 64px -19px rgba(0,0,0,0.35);
+}
+
+.login__form {
+  margin: 10px 0 50px 0px;
+  display: flex;
+  width: 100%;
+  .login-input__text {
+    width: 100%;
+  }
+  .login-input__submit {
+    background: rgba(99, 135, 173, 0.77);
+    border: none;
+  }
 }

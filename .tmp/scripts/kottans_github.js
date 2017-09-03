@@ -43510,98 +43510,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	var app = _angular2.default.module('githubClient', ['ngRoute']);
 
 	app.config(['$routeProvider', function ($routeProvider) {
-	    $routeProvider.when("/", {
-	        templateUrl: 'user-pg.html',
-	        controller: 'loginController'
-	    }).when('/repos', {
-	        templateUser: 'repos-pg.html',
-	        controller: 'storeController'
-	    }).otherwise({
-	        templateUser: 'user-pg.html',
-	        controller: 'loginController'
-	    });
+	  $routeProvider.when('/', {
+	    templateUrl: 'user-pg.html',
+	    controller: 'LoginController'
+	  }).when('/repositories', {
+	    templateUrl: 'repos-pg.html',
+	    controller: 'StoreController'
+	  }).otherwise({
+	    redirectTo: '/'
+	  });
 	}]);
 
-	app.service('GithubService', function () {
-	    // initializing
+	app.service('GitHubService', ['$window', '$q', function ($window, $q) {
+	  // initializing
 
-	    var OAUTH_TOKEN = '3f22856466dcf4cd6240cbf87cd4985d9ef67f8d';
-	    var gh = new _githubApi2.default({
-	        token: OAUTH_TOKEN
-	    });
+	  var OAUTH_TOKEN = 'a35a7a9180af8e1aa31517747e36f0db51ac2741';
+	  var gh = new _githubApi2.default({
+	    token: OAUTH_TOKEN,
+	    headers: {
+	      'Accept': 'application/vnd.github.mercy-preview+json'
+	    }
+	  });
 
-	    var service = {
-	        user: '',
-	        repos: [],
-	        setUser: function setUser(name) {
-	            this.user = gh.getUser(name);
-	        },
-	        getRepos: function getRepos() {
-	            this.user.listRepos().then(function (response) {
-	                console.log(response);
-	                this.repos = response.data;
+	  var userName = $window.localStorage.getItem('GitHubUserName') || 'sashazhardetskaya';
 
-	                return this.repos;
-	            }).catch(function (error) {
-	                console.error('Error!', error);
+	  var service = {
+	    userName: userName,
+	    setUser: function setUser(name) {
+	      $window.localStorage.setItem('GitHubUserName', name);
+	      this.userName = name;
+	    },
+	    getUserName: function getUserName() {
+	      return this.userName;
+	    },
+	    getRepos: function getRepos() {
+	      var deferred = $q.defer();
 
-	                return [];
-	            });
-	        }
-	    };
+	      gh.getUser(this.userName).listRepos().then(function (_ref) {
+	        var reposJson = _ref.data;
 
-	    return service;
-	});
+	        deferred.resolve(reposJson);
+	      }).catch(function (error) {
+	        console.log('Error!', error);
+	        deferred.reject(error);
+	      });
 
-	app.controller('loginController', ['GithubService', '$location', function loginController(GithubService, $location) {
-	    // console.log(loginController.setName());
+	      return deferred.promise;
+	    }
+	  };
 
-	    this.setName = function () {
-	        GithubService.setUser(this.githubName);
-	        $location.url('/repos');
-	    };
-	    // console.log(gh);
-
-	    // gh.getUser(this.githubName).then(function(response){
-	    //     console.log(response);
-	    // });
-	    // console.log(this.githubUser);
-	    // this.githubUser.listRepos()
-	    //     .then(({data: reposJson}) => {
-	    //         console.log(reposJson);
-	    //         const reposArr = reposJson;
-	    //         console.log(`SashaZhardetskaya has ${reposJson.length} repos!`);
-	    //
-	    //
-	    //
-	    //         app.controller('storeController', function () {
-	    //             console.log(reposArr);
-	    //         })
-	    //
-	    //
-	    //
-	    //     });
+	  return service;
 	}]);
 
-	app.controller('storeController', ['GitHubService', function storeController(GitHubService) {
-	    console.log(GitHubService.getUser());
+	app.controller('LoginController', ['$scope', 'GitHubService', '$location', function ($scope, GitHubService, $location) {
+	  $scope.gitHubName = '';
+
+	  $scope.setName = function () {
+	    GitHubService.setUser($scope.gitHubName);
+	    $location.path('/repositories');
+	  };
 	}]);
 
-	// const githubUser = gh.getUser('SashaZhardetskaya');
-	//
-	// githubUser.listRepos()
-	//     .then(({data: reposJson}) => {
-	//         console.log(reposJson);
-	//         const reposArr = reposJson;
-	//         console.log(`SashaZhardetskaya has ${reposJson.length} repos!`);
-	//     });
+	app.controller('StoreController', ['GitHubService', '$scope', function (GitHubService, $scope) {
+	  var loadMoreCount = 10;
 
+	  $scope.loadMore = function () {
+	    // $scope.visibleRepos = $scope.repos.slice()
+	  };
 
-	// clayreimann.listRepos()
-	//     .then(function({data: reposJson}) {
-	//         console.log(reposJson);
-	//         console.log(`SashaZhardetskaya has ${reposJson.length} repos!`);
-	//     });
+	  // $scope.repos = [];
+	  // $scope.visibleRepos = [];
+	  $scope.userName = GitHubService.getUserName();
+
+	  GitHubService.getRepos().then(function (data) {
+	    $scope.repos = data;
+	    console.log($scope.repos);
+	  });
+	}]);
 
 /***/ },
 /* 55 */
@@ -43643,7 +43628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, "body {\n  background: green; }\n", ""]);
+	exports.push([module.id, ".login__section {\n  height: 100vh;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center; }\n\n.login__container {\n  padding: 30px 15px 0 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  border: 3px solid rgba(99, 135, 173, 0.77); }\n\n.login__form {\n  margin: 10px 0 50px 0px;\n  display: flex;\n  width: 100%; }\n  .login__form .login-input__text {\n    width: 100%; }\n  .login__form .login-input__submit {\n    background: rgba(99, 135, 173, 0.77);\n    border: none; }\n", ""]);
 
 	// exports
 
