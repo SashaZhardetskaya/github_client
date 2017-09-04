@@ -2,8 +2,46 @@
 <h1>{{ userName }} repositories:</h1>
 
 
+<form role="form" class="filters" ng-submit="filterRepos()">
+    <input class="has-open-issues"  ng-model="openIssues" type="checkbox" value="openIssues">openIssues
+
+    <input class="is-fork"  ng-model="isForked" type="radio" value="isForked">isForked
+    <input class="is-source"  ng-model="isForked" type="radio" value="isSource">isSource
+
+    <input ng-model="repoLang" type="text" value="write language">language
+
+    <input ng-model="repoStars" type="text">stars
+
+    <input type="submit">
+</form>
+<pre>filters = {{repoStars}}</pre>
+
+
+<form role="form" class="sorting">
+    <input class="sort-name"  ng-model="sortByName" type="checkbox" value="sortByName">sortByName
+
+    <label ng-show="sortByName"><input ng-click="sortRepoNameAscending()" ng-model="sortName" type="radio" value="ascending">name ascending</label>
+    <label ng-show="sortByName"><input ng-click="sortRepoNameDescending()" ng-model="sortName" type="radio" value="descending">name descending</label>
+
+
+
+    <input class="sort-stars"  ng-model="sortByStars" type="checkbox" value="sortByStars">sortByStars
+
+    <label ng-show="sortByStars"><input ng-click="sortRepoStarsAscending()" ng-model="sortStars" type="radio" value="ascending">stars ascending</label>
+    <label ng-show="sortByStars"><input ng-click="sortRepoStarsDescending()" ng-model="sortStars" type="radio" value="descending">stars descending</label>
+
+    <!--<input type="submit">-->
+</form>
+
+
+
 <ol class="repositories-container">
     <li class="repositories-container__item" ng-repeat="repo in repos">
-        {{ repo.name }}
+        <div class="repo__name">{{ repo.name }}</div>
+        <div class="repo__description">{{ repo.description }}</div>
+        <div class="repo__forked" ng-show="repo.fork">Repo is fork</div>
+        <div class="repo__stars" ng-show="repo.stargazers_count > 0">Stars: {{ repo.stargazers_count }}</div>
+        <div class="repo__update">Date of last update: {{ repo.updated_at | date }}</div>
+        <div class="repo__lang">{{ repo.language }}</div>
     </li>
 </ol>

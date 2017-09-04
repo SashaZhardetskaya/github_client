@@ -24,7 +24,7 @@ app.config(['$routeProvider', function($routeProvider){
 app.service('GitHubService', ['$window', '$q', function($window, $q){
   // initializing
 
-  const OAUTH_TOKEN = 'a35a7a9180af8e1aa31517747e36f0db51ac2741';
+  const OAUTH_TOKEN = '0fdcbc22a106bc5018cf26abdfbf0789fb653630';
   const gh = new GitHub({
     token: OAUTH_TOKEN,
     headers: {
@@ -89,6 +89,95 @@ app.controller('StoreController', ['GitHubService', '$scope', function(GitHubSer
       $scope.repos = data;
       console.log($scope.repos);
     });
+
+    $scope.filterRepos = function () {
+        let reposArr = $scope.repos;
+        function filterIsFork(obj) {
+            return obj.fork;
+        };
+        function filterIsSourse(obj) {
+            return !obj.fork;
+        };
+        function filterLang(obj) {
+            let repoLang = $scope.repoLang.toLowerCase();
+            console.log(repoLang);
+            if ((obj.language && obj.language.toLowerCase()) == repoLang){
+              return obj.language;
+          }
+        };
+        function filterStarred(obj) {
+            let starsSelect = $scope.repoStars;
+            console.log(starsSelect);
+            if (obj.stargazers_count >= starsSelect){
+                return obj.stargazers_count;
+            }
+        };
+        function filterOpenIssuses(obj) {
+            if (obj.open_issues > 0){
+                return obj.open_issues;
+            }
+        };
+        let filteredRepos = reposArr.filter(filterIsSourse);
+        // let filteredRepos = reposArr.filter(filterIsSourse).filter(filterLang);
+        console.log(filteredRepos);
+    };
+
+    $scope.sortRepoNameAscending = function () {
+        let reposArr = $scope.repos;
+        let sortedRepo = reposArr.sort(function(a, b){
+            let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+            if (nameA < nameB) {
+                return -1;
+            } else {
+                return 1;
+            };
+            return 0;
+        });
+        console.log(sortedRepo);
+    };
+    $scope.sortRepoNameDescending = function () {
+        let reposArr = $scope.repos;
+        let sortedRepo = reposArr.sort(function(a, b){
+            let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+            if (nameA > nameB) {
+                return -1;
+            } else {
+                return 1;
+            };
+            return 0;
+        });
+        console.log(sortedRepo);
+    };
+
+
+
+
+    $scope.sortRepoStarsAscending = function () {
+        let reposArr = $scope.repos;
+        let sortedRepo = reposArr.sort(function(a, b){
+            let valueA=a.stargazers_count, valueB=b.stargazers_count;
+            if (valueA < valueB) {
+                return -1;
+            } else {
+                return 1;
+            };
+            return 0;
+        });
+        console.log(sortedRepo);
+    };
+    $scope.sortRepoStarsDescending = function () {
+        let reposArr = $scope.repos;
+        let sortedRepo = reposArr.sort(function(a, b){
+            let valueA=a.stargazers_count, valueB=b.stargazers_count;
+            if (valueA > valueB) {
+                return -1;
+            } else {
+                return 1;
+            };
+            return 0;
+        });
+        console.log(sortedRepo);
+    };
 
 }]);
 

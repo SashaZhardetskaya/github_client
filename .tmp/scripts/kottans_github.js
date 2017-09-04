@@ -43510,82 +43510,172 @@ return /******/ (function(modules) { // webpackBootstrap
 	var app = _angular2.default.module('githubClient', ['ngRoute']);
 
 	app.config(['$routeProvider', function ($routeProvider) {
-	  $routeProvider.when('/', {
-	    templateUrl: 'user-pg.html',
-	    controller: 'LoginController'
-	  }).when('/repositories', {
-	    templateUrl: 'repos-pg.html',
-	    controller: 'StoreController'
-	  }).otherwise({
-	    redirectTo: '/'
-	  });
+	    $routeProvider.when('/', {
+	        templateUrl: 'user-pg.html',
+	        controller: 'LoginController'
+	    }).when('/repositories', {
+	        templateUrl: 'repos-pg.html',
+	        controller: 'StoreController'
+	    }).otherwise({
+	        redirectTo: '/'
+	    });
 	}]);
 
 	app.service('GitHubService', ['$window', '$q', function ($window, $q) {
-	  // initializing
+	    // initializing
 
-	  var OAUTH_TOKEN = 'a35a7a9180af8e1aa31517747e36f0db51ac2741';
-	  var gh = new _githubApi2.default({
-	    token: OAUTH_TOKEN,
-	    headers: {
-	      'Accept': 'application/vnd.github.mercy-preview+json'
-	    }
-	  });
+	    var OAUTH_TOKEN = '0fdcbc22a106bc5018cf26abdfbf0789fb653630';
+	    var gh = new _githubApi2.default({
+	        token: OAUTH_TOKEN,
+	        headers: {
+	            'Accept': 'application/vnd.github.mercy-preview+json'
+	        }
+	    });
 
-	  var userName = $window.localStorage.getItem('GitHubUserName') || 'sashazhardetskaya';
+	    var userName = $window.localStorage.getItem('GitHubUserName') || 'sashazhardetskaya';
 
-	  var service = {
-	    userName: userName,
-	    setUser: function setUser(name) {
-	      $window.localStorage.setItem('GitHubUserName', name);
-	      this.userName = name;
-	    },
-	    getUserName: function getUserName() {
-	      return this.userName;
-	    },
-	    getRepos: function getRepos() {
-	      var deferred = $q.defer();
+	    var service = {
+	        userName: userName,
+	        setUser: function setUser(name) {
+	            $window.localStorage.setItem('GitHubUserName', name);
+	            this.userName = name;
+	        },
+	        getUserName: function getUserName() {
+	            return this.userName;
+	        },
+	        getRepos: function getRepos() {
+	            var deferred = $q.defer();
 
-	      gh.getUser(this.userName).listRepos().then(function (_ref) {
-	        var reposJson = _ref.data;
+	            gh.getUser(this.userName).listRepos().then(function (_ref) {
+	                var reposJson = _ref.data;
 
-	        deferred.resolve(reposJson);
-	      }).catch(function (error) {
-	        console.log('Error!', error);
-	        deferred.reject(error);
-	      });
+	                deferred.resolve(reposJson);
+	            }).catch(function (error) {
+	                console.log('Error!', error);
+	                deferred.reject(error);
+	            });
 
-	      return deferred.promise;
-	    }
-	  };
+	            return deferred.promise;
+	        }
+	    };
 
-	  return service;
+	    return service;
 	}]);
 
 	app.controller('LoginController', ['$scope', 'GitHubService', '$location', function ($scope, GitHubService, $location) {
-	  $scope.gitHubName = '';
+	    $scope.gitHubName = '';
 
-	  $scope.setName = function () {
-	    GitHubService.setUser($scope.gitHubName);
-	    $location.path('/repositories');
-	  };
+	    $scope.setName = function () {
+	        GitHubService.setUser($scope.gitHubName);
+	        $location.path('/repositories');
+	    };
 	}]);
 
 	app.controller('StoreController', ['GitHubService', '$scope', function (GitHubService, $scope) {
-	  var loadMoreCount = 10;
+	    var loadMoreCount = 10;
 
-	  $scope.loadMore = function () {
-	    // $scope.visibleRepos = $scope.repos.slice()
-	  };
+	    $scope.loadMore = function () {
+	        // $scope.visibleRepos = $scope.repos.slice()
+	    };
 
-	  // $scope.repos = [];
-	  // $scope.visibleRepos = [];
-	  $scope.userName = GitHubService.getUserName();
+	    // $scope.repos = [];
+	    // $scope.visibleRepos = [];
+	    $scope.userName = GitHubService.getUserName();
 
-	  GitHubService.getRepos().then(function (data) {
-	    $scope.repos = data;
-	    console.log($scope.repos);
-	  });
+	    GitHubService.getRepos().then(function (data) {
+	        $scope.repos = data;
+	        console.log($scope.repos);
+	    });
+
+	    $scope.filterRepos = function () {
+	        var reposArr = $scope.repos;
+	        function filterIsFork(obj) {
+	            return obj.fork;
+	        };
+	        function filterIsSourse(obj) {
+	            return !obj.fork;
+	        };
+	        function filterLang(obj) {
+	            var repoLang = $scope.repoLang.toLowerCase();
+	            console.log(repoLang);
+	            if ((obj.language && obj.language.toLowerCase()) == repoLang) {
+	                return obj.language;
+	            }
+	        };
+	        function filterStarred(obj) {
+	            var starsSelect = $scope.repoStars;
+	            console.log(starsSelect);
+	            if (obj.stargazers_count >= starsSelect) {
+	                return obj.stargazers_count;
+	            }
+	        };
+	        function filterOpenIssuses(obj) {
+	            if (obj.open_issues > 0) {
+	                return obj.open_issues;
+	            }
+	        };
+	        var filteredRepos = reposArr.filter(filterIsSourse);
+	        // let filteredRepos = reposArr.filter(filterIsSourse).filter(filterLang);
+	        console.log(filteredRepos);
+	    };
+
+	    $scope.sortRepoNameAscending = function () {
+	        var reposArr = $scope.repos;
+	        var sortedRepo = reposArr.sort(function (a, b) {
+	            var nameA = a.name.toLowerCase(),
+	                nameB = b.name.toLowerCase();
+	            if (nameA < nameB) {
+	                return -1;
+	            } else {
+	                return 1;
+	            };
+	            return 0;
+	        });
+	        console.log(sortedRepo);
+	    };
+	    $scope.sortRepoNameDescending = function () {
+	        var reposArr = $scope.repos;
+	        var sortedRepo = reposArr.sort(function (a, b) {
+	            var nameA = a.name.toLowerCase(),
+	                nameB = b.name.toLowerCase();
+	            if (nameA > nameB) {
+	                return -1;
+	            } else {
+	                return 1;
+	            };
+	            return 0;
+	        });
+	        console.log(sortedRepo);
+	    };
+
+	    $scope.sortRepoStarsAscending = function () {
+	        var reposArr = $scope.repos;
+	        var sortedRepo = reposArr.sort(function (a, b) {
+	            var valueA = a.stargazers_count,
+	                valueB = b.stargazers_count;
+	            if (valueA < valueB) {
+	                return -1;
+	            } else {
+	                return 1;
+	            };
+	            return 0;
+	        });
+	        console.log(sortedRepo);
+	    };
+	    $scope.sortRepoStarsDescending = function () {
+	        var reposArr = $scope.repos;
+	        var sortedRepo = reposArr.sort(function (a, b) {
+	            var valueA = a.stargazers_count,
+	                valueB = b.stargazers_count;
+	            if (valueA > valueB) {
+	                return -1;
+	            } else {
+	                return 1;
+	            };
+	            return 0;
+	        });
+	        console.log(sortedRepo);
+	    };
 	}]);
 
 /***/ },
