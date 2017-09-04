@@ -43524,7 +43524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	app.service('GitHubService', ['$window', '$q', function ($window, $q) {
 	    // initializing
 
-	    var OAUTH_TOKEN = '0fdcbc22a106bc5018cf26abdfbf0789fb653630';
+	    var OAUTH_TOKEN = '4aa57a66c75800d28444983ecfe7b33caa364e06';
 	    var gh = new _githubApi2.default({
 	        token: OAUTH_TOKEN,
 	        headers: {

@@ -24,7 +24,7 @@ app.config(['$routeProvider', function($routeProvider){
 app.service('GitHubService', ['$window', '$q', function($window, $q){
   // initializing
 
-  const OAUTH_TOKEN = '0fdcbc22a106bc5018cf26abdfbf0789fb653630';
+  const OAUTH_TOKEN = '4aa57a66c75800d28444983ecfe7b33caa364e06';
   const gh = new GitHub({
     token: OAUTH_TOKEN,
     headers: {
