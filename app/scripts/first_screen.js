@@ -148,8 +148,18 @@ app.controller('StoreController', ['GitHubService', '$scope', '$filter', functio
       finalData = $filter('filter')(finalData, { language: $scope.filterByLang });
     }
 
-    if($scope.filterByOpenIssues.length) {
-      finalData = $filter('filter')(finalData, { language: $scope.filterByLang });
+    if($scope.filterByOpenIssues) {
+
+      finalData = $filter('filter')(finalData, { open_issues_count: $scope.filterByOpenIssues });
+      console.log(finalData);
+    }
+
+    if($scope.filterByStars) {
+      finalData = $filter('filter')(finalData, { open_issues_count: $scope.filterByStars });
+    }
+
+    if($scope.filterBySource) {
+      finalData = $filter('filter')(finalData, { fork: $scope.filterBySource });
     }
 
 
