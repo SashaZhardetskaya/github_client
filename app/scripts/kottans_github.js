@@ -1,4 +1,5 @@
 import angular from 'angular';
+import material from 'materialize-css'
 import angularRoute from 'angular-route';
 import GitHub from 'github-api';
 

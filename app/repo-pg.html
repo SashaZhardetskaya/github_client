@@ -1,0 +1,52 @@
+<a ng-href="#!/repositories">Go Back</a>
+
+<br>
+<br>
+
+<div class="loading" ng-if="isLoading">
+    Loading...
+</div>
+<div class="content" ng-if="!isLoading">
+    <h1>{{ repo.repoName }}</h1>
+    Link: <a ng-href="{{ repo.htmlUrl }}">{{ repo.repoName }}</a> <br>
+
+    <hr>
+    <h3>Languages</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Language</th>
+                <th>KBs</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="lang in repo.languages">
+                <td>{{ lang.language }}</td>
+                <td>{{ lang.size }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h3>Contributors</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Contributor</th>
+            <th>Contributions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="contributor in repo.contributors">
+            <td><a href="{{ contributor.html_url }}">{{ contributor.login }}</a></td>
+            <td>{{ contributor.contributions }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h3>Top-5 Pull Requests</h3>
+    <div ng-repeat="pull in repo.pulls">
+        <a href="{{ pull.url }}">
+            {{ pull.title }}
+        </a>
+    </div>
+</div>

@@ -23,21 +23,62 @@
     <label ng-show="sortByName"><input ng-click="sortRepoNameAscending()" ng-model="sortName" type="radio" value="ascending">name ascending</label>
     <label ng-show="sortByName"><input ng-click="sortRepoNameDescending()" ng-model="sortName" type="radio" value="descending">name descending</label>
 
-
-
     <input class="sort-stars"  ng-model="sortByStars" type="checkbox" value="sortByStars">sortByStars
 
     <label ng-show="sortByStars"><input ng-click="sortRepoStarsAscending()" ng-model="sortStars" type="radio" value="ascending">stars ascending</label>
     <label ng-show="sortByStars"><input ng-click="sortRepoStarsDescending()" ng-model="sortStars" type="radio" value="descending">stars descending</label>
 
+
+    <input class="sort-date"  ng-model="sortByDate" type="checkbox" value="sortByDate">sortByDate
+
+    <label ng-show="sortByDate"><input ng-click="sortRepoDateAscending()" ng-model="sortDate" type="radio" value="ascending">Date ascending</label>
+    <label ng-show="sortByDate"><input ng-click="sortRepoDateDescending()" ng-model="sortDate" type="radio" value="descending">Date descending</label>
+
+
+    <input class="sort-issues"  ng-model="sortByIssues" type="checkbox" value="sortByIssues">sortByIssues
+
+    <label ng-show="sortByIssues"><input ng-click="sortRepoIssuesAscending()" ng-model="sortIssues" type="radio" value="ascending">Issues ascending</label>
+    <label ng-show="sortByIssues"><input ng-click="sortRepoIssuesDescending()" ng-model="sortIssues" type="radio" value="descending">Issues descending</label>
+
     <!--<input type="submit">-->
 </form>
 
+<hr>
+<br>
+<br>
+<br>
 
+<label for="sortByRepoName">
+    <input id="sortByRepoName" name="sortByRepoName" type="checkbox" ng-model="sortByRepoName">
+    Sort by Repository Name
+</label>
+
+<div ng-show="sortByRepoName">
+    <label for="sortByRepoNameAscending">
+        <input type="radio" id="sortByRepoNameAscending" name="sortByRepoNameAscending" ng-model="sortByRepoNameValue" value="ascending">
+        Ascending
+    </label>
+
+    <label for="sortByRepoNameDescending">
+        <input type="radio" id="sortByRepoNameDescending" name="sortByRepoNameDescending" ng-model="sortByRepoNameValue" value="descending">
+        Descending
+    </label>
+</div>
+
+<br>
+
+
+<input ng-model="filterByLang" type="text">language
+
+<input ng-model="filterByOpenIssues" type="number">openIssues
+
+
+<br>
+<br>
 
 <ol class="repositories-container">
-    <li class="repositories-container__item" ng-repeat="repo in repos">
-        <div class="repo__name">{{ repo.name }}</div>
+    <li class="repositories-container__item" ng-repeat="repo in getData()">
+        <div class="repo__name"><a ng-href="#!/repositories/{{repo.name}}">{{ repo.name }}</a></div>
         <div class="repo__description">{{ repo.description }}</div>
         <div class="repo__forked" ng-show="repo.fork">Repo is fork</div>
         <div class="repo__stars" ng-show="repo.stargazers_count > 0">Stars: {{ repo.stargazers_count }}</div>

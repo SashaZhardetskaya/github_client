@@ -39,6 +39,7 @@
     "gulp-useref": "^3.0.7",
     "gulp-webpack": "~1.5.0",
     "main-bower-files": "~2.11.1",
+    "materialize-css": "^0.100.2",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
