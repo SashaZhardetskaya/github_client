@@ -1,3 +1,63 @@
+body {
+  background: #fcfcfc;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  font-size: inherit;
+  color: #333;
+}
+
+[type="radio"]:not(:checked), [type="radio"]:checked {
+  position: relative;
+  opacity: 1;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: relative;
+  opacity: 1;
+  margin-right: 15px;
+}
+
+.input-text {
+  width: 100%;
+  max-width: 400px;
+}
+.input-number {
+  width: 100%;
+  max-width: 400px;
+}
+
+input[type=number]:not(.browser-default), input[type=text]:not(.browser-default) {
+  height: 1rem;
+  margin: 0;
+}
+
+.input-text, .input-checkbox, .input-number, .input-radio {
+  margin: 20px 0;
+}
+
+.input-radio {
+  display: flex;
+  label {
+    margin: 0 30px 0 0;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+}
+.col-half {
+  width: 50%;
+  min-width: 400px;
+}
+
 .login__section {
   height: 100vh;
   width: 100%;
@@ -8,12 +68,13 @@
 }
 
 .login__container {
+  border-radius: 5px;
   padding: 30px 15px 0 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  border: 3px solid rgba(99, 135, 173, 0.77);
+  border: 3px solid rgba(191, 191, 191, 0.77);
   //box-shadow: 1px 3px 64px -19px rgba(0,0,0,0.35);
 }
 
@@ -24,8 +85,32 @@
   .login-input__text {
     width: 100%;
   }
-  .login-input__submit {
-    background: rgba(99, 135, 173, 0.77);
-    border: none;
+}
+
+#login-input__text {
+  height: 35px;
+}
+
+.repositories-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0;
+  li {
+    width: 48%;
+    margin: 2% 0;
+    padding: 15px;
+    border: 1px solid rgba(191, 191, 191, 0.53);
+    list-style-position: inside;
+    @media (max-width: 850px) {
+      width: 100%;
+      border: none;
+      margin: 2% 0 2% 2%;
+      list-style-position: outside;
+    }
   }
+}
+
+.repo__description {
+  font-style: italic;
 }

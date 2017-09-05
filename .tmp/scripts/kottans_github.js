@@ -66629,28 +66629,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if ($scope.filterByStars) {
-	      finalData = $filter('filter')(finalData, { open_issues_count: $scope.filterByStars });
+	      finalData = $filter('filter')(finalData, { stargazers_count: $scope.filterByStars });
 	    }
 
 	    if ($scope.filterBySource) {
 	      finalData = $filter('filter')(finalData, { fork: $scope.filterBySource });
 	    }
 
+	    //////
 	    if ($scope.sortByRepoName) {
 	      finalData = $filter('orderBy')(finalData, $scope.sortByRepoNameValue === 'descending' ? '-name' : 'name');
 	    }
-	    //
-	    // if($scope.sortByOpenIssues) {
-	    //   finalData = $filter('orderBy')(finalData, $scope.sortByRepoNameValue === 'descending' ? '-open_issues_count' : 'open_issues_count');
-	    // }
 
+	    if ($scope.sortByOpenIssues) {
+	      finalData = $filter('orderBy')(finalData, $scope.sortByRepoOpenIssuesValue === 'descending' ? '-open_issues_count' : 'open_issues_count');
+	    }
+
+	    if ($scope.sortByStars) {
+	      finalData = $filter('orderBy')(finalData, $scope.sortByRepoStarsValue === 'descending' ? '-stargazers_count' : 'stargazers_count');
+	    }
+
+	    if ($scope.sortByUpdate) {
+	      finalData = $filter('orderBy')(finalData, $scope.sortByRepoUpdateValue === 'descending' ? '-updated_at' : 'updated_at');
+	    }
 
 	    return finalData;
 	  };
 
 	  $scope.sortByRepoName = false;
 	  $scope.sortByRepoNameValue = 'descending';
+	  $scope.sortByRepoOpenIssuesValue = 'descending';
+	  $scope.sortByRepoStarsValue = 'descending';
+	  $scope.sortByRepoUpdateValue = 'descending';
 	  $scope.filterByLang = '';
+	  $scope.filterByOpenIssues = '';
+	  $scope.filterByStars = '';
+	  $scope.filterBySource = false;
 	  // $scope.repos = [];
 	  // $scope.visibleRepos = [];
 	  $scope.userName = GitHubService.getUserName();
@@ -66701,7 +66715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".login__section {\n  height: 100vh;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center; }\n\n.login__container {\n  padding: 30px 15px 0 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  border: 3px solid rgba(99, 135, 173, 0.77); }\n\n.login__form {\n  margin: 10px 0 50px 0px;\n  display: flex;\n  width: 100%; }\n  .login__form .login-input__text {\n    width: 100%; }\n  .login__form .login-input__submit {\n    background: rgba(99, 135, 173, 0.77);\n    border: none; }\n", ""]);
+	exports.push([module.id, "body {\n  background: #fcfcfc;\n  padding: 20px; }\n\nlabel {\n  display: block;\n  font-size: inherit;\n  color: #333; }\n\n[type=\"radio\"]:not(:checked), [type=\"radio\"]:checked {\n  position: relative;\n  opacity: 1;\n  display: inline-block;\n  margin-right: 15px; }\n\n[type=\"checkbox\"]:not(:checked), [type=\"checkbox\"]:checked {\n  position: relative;\n  opacity: 1;\n  margin-right: 15px; }\n\n.input-text {\n  width: 100%;\n  max-width: 400px; }\n\n.input-number {\n  width: 100%;\n  max-width: 400px; }\n\ninput[type=number]:not(.browser-default), input[type=text]:not(.browser-default) {\n  height: 1rem;\n  margin: 0; }\n\n.input-text, .input-checkbox, .input-number, .input-radio {\n  margin: 20px 0; }\n\n.input-radio {\n  display: flex; }\n  .input-radio label {\n    margin: 0 30px 0 0; }\n\n.wrapper {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  margin-bottom: 80px; }\n\n.col-half {\n  width: 50%;\n  min-width: 400px; }\n\n.login__section {\n  height: 100vh;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center; }\n\n.login__container {\n  border-radius: 5px;\n  padding: 30px 15px 0 15px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  border: 3px solid rgba(191, 191, 191, 0.77); }\n\n.login__form {\n  margin: 10px 0 50px 0px;\n  display: flex;\n  width: 100%; }\n  .login__form .login-input__text {\n    width: 100%; }\n\n#login-input__text {\n  height: 35px; }\n\n.repositories-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  padding: 0; }\n  .repositories-container li {\n    width: 48%;\n    margin: 2% 0;\n    padding: 15px;\n    border: 1px solid rgba(191, 191, 191, 0.53);\n    list-style-position: inside; }\n    @media (max-width: 850px) {\n      .repositories-container li {\n        width: 100%;\n        border: none;\n        margin: 2% 0 2% 2%;\n        list-style-position: outside; } }\n\n.repo__description {\n  font-style: italic; }\n", ""]);
 
 	// exports
 
