@@ -1,9 +1,9 @@
 {
-  "name": "kottans_github",
+  "name": "common",
   "version": "0.1.0",
   "description": "",
   "author": " <sasha310209@gmail.com>",
-  "main": "dist/scripts/kottans_github.js",
+  "main": "dist/scripts/common.js",
   "keywords": [
     "yeoman-generator"
   ],

@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + '/app',
-  entry: {kottans_github: ['./scripts/kottans_github.js']},
+  entry: {common: ['./scripts/common.js']},
   output: {
     path: __dirname + '/build',
     filename: '[name].js',
