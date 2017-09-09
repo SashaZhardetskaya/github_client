@@ -1,10 +1,10 @@
 import angular from 'angular';
 import GitHub from 'github-api';
+import ngInfiniteScroll from 'ng-infinite-scroll';
 import '../styles/main.scss';
 
 
-
-let app = angular.module('githubClient', ['ngRoute']);
+let app = angular.module('githubClient', ['ngRoute', ngInfiniteScroll]);
 
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider

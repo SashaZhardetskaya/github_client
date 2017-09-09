@@ -1,4 +1,5 @@
 import angular from 'angular';
+import ngInfiniteScroll from 'ng-infinite-scroll';
 import GitHub from 'github-api';
 
 import '../styles/main.scss';
@@ -7,11 +8,14 @@ import '../styles/main.scss';
 import app from './init_route'
 
 app.controller('StoreController', ['GitHubService', '$scope', '$filter', function(GitHubService, $scope, $filter) {
-  let loadMoreCount = 10;
+  $scope.loadMoreCount = 12;
 
   $scope.loadMore = function () {
-    // $scope.visibleRepos = $scope.repos.slice()
+    let increamented = $scope.loadMoreCount + 12;
+    $scope.loadMoreCount = increamented > $scope.repos.length ? $scope.repos.length : increamented;
   };
+
+
 
   $scope.getData = function() {
     let finalData = $scope.repos;

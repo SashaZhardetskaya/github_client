@@ -1,6 +1,7 @@
 import angular from 'angular';
 import material from 'materialize-css'
 import angularRoute from 'angular-route';
+import ngInfiniteScroll from 'ng-infinite-scroll';
 import GitHub from 'github-api';
 
 import './init_route';

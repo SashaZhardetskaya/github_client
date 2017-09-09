@@ -1,6 +1,7 @@
 body {
   background: #fcfcfc;
   padding: 20px;
+  color: #434343;
 }
 
 label {
@@ -69,7 +70,7 @@ input[type=number]:not(.browser-default), input[type=text]:not(.browser-default)
 
 .login__container {
   border-radius: 5px;
-  padding: 30px 15px 0 15px;
+  padding: 30px 25px 0 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,6 +90,11 @@ input[type=number]:not(.browser-default), input[type=text]:not(.browser-default)
 
 #login-input__text {
   height: 35px;
+}
+
+.login-input__submit {
+  display: flex;
+  justify-content: center;
 }
 
 .repositories-container {
@@ -113,4 +119,33 @@ input[type=number]:not(.browser-default), input[type=text]:not(.browser-default)
 
 .repo__description {
   font-style: italic;
+}
+.repo__stars {
+  display: inline-block;
+  margin-right: 8px;
+  //align-items: center;
+}
+.repo__stars svg {
+  position: relative;
+  top: 2px;
+  width: 15px;
+  fill: rgb(115, 114, 114);
+}
+
+.repo__forked {
+  display: inline-block;
+  margin-right: 8px;
+  svg {
+    width: 15px;
+    fill: rgb(115, 114, 114);
+  }
+}
+
+.repo__lang {
+  display: inline-block;
+}
+
+.repo__update {
+  color: #6f6f6f;
+  font-size: 13px;
 }
