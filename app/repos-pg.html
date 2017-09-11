@@ -6,7 +6,11 @@
 <br>
 <br>
 <br>
-<div class="wrapper">
+<div class="loading" ng-if="pgIsLoading">
+    Loading...
+</div>
+
+<div class="wrapper" ng-if="!pgIsLoading">
 
 
     <form  action="#" class="col-half">

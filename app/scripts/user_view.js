@@ -7,6 +7,7 @@ import '../styles/main.scss';
 import app from './init_route'
 
 app.controller('StoreController', ['GitHubService', '$scope', '$filter', function(GitHubService, $scope, $filter) {
+  $scope.pgIsLoading = true;
   $scope.loadMoreCount = 6;
 
   $scope.loadMore = function () {
@@ -114,6 +115,7 @@ app.controller('StoreController', ['GitHubService', '$scope', '$filter', functio
     .then(function(data){
       $scope.repos = data;
       console.log($scope.repos);
+      $scope.pgIsLoading = false;
     });
 
 }]);

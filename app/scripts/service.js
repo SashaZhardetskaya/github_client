@@ -67,6 +67,7 @@ app.service('GitHubService', ['$window', '$q', '$http', function($window, $q, $h
           obj.languages = langs.filter( lang => lang.size > 1 );
 
           return $http.get(obj.pulls_url.replace('{/number}', '?state=open&sort=popularity&direction=desc&per_page=5'))
+
         })
         .then(function({ data: pulls }) {
           obj.pulls = pulls;

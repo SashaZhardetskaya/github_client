@@ -67228,6 +67228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_init_route2.default.controller('StoreController', ['GitHubService', '$scope', '$filter', function (GitHubService, $scope, $filter) {
+	  $scope.pgIsLoading = true;
 	  $scope.loadMoreCount = 6;
 
 	  $scope.loadMore = function () {
@@ -67327,6 +67328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  GitHubService.getRepos().then(function (data) {
 	    $scope.repos = data;
 	    console.log($scope.repos);
+	    $scope.pgIsLoading = false;
 	  });
 	}]);
 

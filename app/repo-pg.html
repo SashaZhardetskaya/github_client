@@ -10,7 +10,7 @@
     <h1>{{ repo.repoName }}</h1>
     Link: <a ng-href="{{ repo.htmlUrl }}">{{ repo.repoName }}</a> <br>
 
-    <hr>
+
     <h3>Languages</h3>
     <table>
         <thead>
@@ -26,7 +26,9 @@
             </tr>
         </tbody>
     </table>
-    <hr>
+
+
+
     <h3>Contributors</h3>
     <table>
         <thead>
@@ -42,9 +44,12 @@
         </tr>
         </tbody>
     </table>
-    <hr>
-    <h3>Top-5 Pull Requests</h3>
-    <div ng-repeat="pull in repo.pulls">
+
+
+
+    <h3 ng-show="repo.pulls.length >= 1">Top-5 Pull Requests</h3>
+    <h5 ng-show="repo.pulls.length == 0">There is no pull requests in repository</h5>
+    <div ng-repeat="pull in repo.pulls" ng-model="pullsBlock">
         <a href="{{ pull.url }}">
             {{ pull.title }}
         </a>
