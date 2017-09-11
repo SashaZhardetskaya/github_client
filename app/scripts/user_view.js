@@ -28,12 +28,16 @@ app.controller('StoreController', ['GitHubService', '$scope', '$filter', functio
     if($scope.filterByOpenIssues) {
 
       finalData = $filter('filter')(finalData, { open_issues_count: $scope.filterByOpenIssues });
-      console.log(finalData);
     }
 
     if($scope.filterByStars) {
-      finalData = $filter('filter')(finalData, { stargazers_count: $scope.filterByStars });
+      finalData = $filter('filter')(finalData, {
+        stargazers_count: $scope.filterByStars
+      }, (starsCount, starsCountGreater) => {
+        return new Date(starsCount) > new Date(starsCountGreater);
+      });
     }
+
 
     if($scope.filterBySource) {
       finalData = $filter('filter')(finalData, { fork: $scope.filterBySource });
@@ -63,9 +67,9 @@ app.controller('StoreController', ['GitHubService', '$scope', '$filter', functio
 
       finalData = $filter('filter')(finalData, {
         updated_at: DateGiven
-      }, (updated_at, DateGiven) => {
-        return new Date(updated_at) > new Date(DateGiven);
-      }); //30feb and error
+      }, (repoLastUpdateDate, dateUpdateShouldBeGreater) => {
+        return new Date(repoLastUpdateDate) >= new Date(dateUpdateShouldBeGreater);
+      });
 
       console.log(finalData);
 

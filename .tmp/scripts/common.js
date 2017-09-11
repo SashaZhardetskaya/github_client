@@ -67246,11 +67246,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if ($scope.filterByOpenIssues) {
 
 	      finalData = $filter('filter')(finalData, { open_issues_count: $scope.filterByOpenIssues });
-	      console.log(finalData);
 	    }
 
 	    if ($scope.filterByStars) {
-	      finalData = $filter('filter')(finalData, { stargazers_count: $scope.filterByStars });
+	      finalData = $filter('filter')(finalData, {
+	        stargazers_count: $scope.filterByStars
+	      }, function (starsCount, starsCountGreater) {
+	        return new Date(starsCount) > new Date(starsCountGreater);
+	      });
 	    }
 
 	    if ($scope.filterBySource) {
@@ -67279,9 +67282,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      finalData = $filter('filter')(finalData, {
 	        updated_at: DateGiven
-	      }, function (updated_at, DateGiven) {
-	        return new Date(updated_at) > new Date(DateGiven);
-	      }); //30feb and error
+	      }, function (repoLastUpdateDate, dateUpdateShouldBeGreater) {
+	        return new Date(repoLastUpdateDate) >= new Date(dateUpdateShouldBeGreater);
+	      });
 
 	      console.log(finalData);
 	    }
