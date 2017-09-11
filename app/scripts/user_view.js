@@ -61,16 +61,11 @@ app.controller('StoreController', ['GitHubService', '$scope', '$filter', functio
       console.log(DateGiven);
       // console.log(finalDateGivenGreater);
 
-      finalData = $filter('filter')(finalData, { updated_at: DateGiven }); //30feb and error
-      // finalData = $filter('filter')(finalData, { updated_at: 'updated_at' >= DateGiven });
-
-      // finalData.filter(function (obj) {
-      //   return obj.updated_at >= DateGiven;
-      // });
-
-      // finalData.forEach(function (obj) {
-      //   return obj.updated_at >= DateGiven;
-      // });
+      finalData = $filter('filter')(finalData, {
+        updated_at: DateGiven
+      }, (updated_at, DateGiven) => {
+        return new Date(updated_at) > new Date(DateGiven);
+      }); //30feb and error
 
       console.log(finalData);
 
