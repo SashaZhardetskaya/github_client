@@ -6,11 +6,8 @@
 <br>
 <br>
 <br>
-<div class="loading" ng-if="pgIsLoading">
-    Loading...
-</div>
 
-<div class="wrapper" ng-if="!pgIsLoading">
+<div class="wrapper" >
 
 
     <form  action="#" class="col-half">
@@ -107,6 +104,7 @@
         <div class="input-radio">
             <label for="filterBySourceFork"><input id="filterBySourceFork" ng-model="filterBySource" type="radio" value="true">isForked</label>
             <label for="filterBySourceSource"><input id="filterBySourceSource" ng-model="filterBySource" type="radio" value="false">isSource</label>
+            <label for="filterBySource"><input id="filterBySource" ng-model="filterBySource" type="radio" value="">allRepos</label>
         </div>
 
         <div class="input-date">
